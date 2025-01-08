@@ -1,0 +1,35 @@
+name: Clone and Run Ven.py in Choreo
+
+components:
+  - name: CloneRepository
+    type: task
+    source:
+      kind: git
+      url: https://github.com/Ko0uu8/A.git
+      branch: main
+    build:
+      commands:
+        - cd A
+        - pip install pyTelegramBotAPI  # Install telebot library
+
+  - name: GiveBinaryPermission
+    type: task
+    source:
+      inline:
+        language: bash
+        code: |
+          chmod +x venompapa
+
+  - name: RunPythonScript
+    type: task
+    source:
+      inline:
+        language: bash
+        code: |
+          python3 Ven.py
+
+deployment:
+  tasks:
+    - component: CloneRepository
+    - component: GiveBinaryPermission
+    - component: RunPythonScript
